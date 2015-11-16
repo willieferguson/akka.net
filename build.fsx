@@ -1,4 +1,4 @@
-#I @"packages/build/FAKE/tools"
+﻿#I @"packages/build/FAKE/tools"
 #r "FakeLib.dll"
 #r "System.Xml.Linq"
 
@@ -319,8 +319,7 @@ let createNugetPackages _ =
         let project = Path.GetFileNameWithoutExtension nuspec 
         
         let workingDir = workingDir </> project
-
-        CleanDir workingDir
+        let libDir = workingDir @@ @"lib\net45\"
 
         let projectDir = Path.GetDirectoryName nuspec
         let projectFile = (!! (projectDir @@ project + ".*sproj")) |> Seq.head
