@@ -419,11 +419,11 @@ namespace Akka.Util
         public int GetInt(ByteOrder byteOrder = ByteOrder.BigEndian)
         {
           return byteOrder == ByteOrder.BigEndian
-              ? (short)(((Next() & 0xff) << 24) 
+              ? (((Next() & 0xff) << 24) 
                       | ((Next() & 0xff) << 16)
                       | ((Next() & 0xff) <<  8)
                       | ((Next() & 0xff) <<  0))
-              : (short)(((Next() & 0xff) <<  0)
+              : (((Next() & 0xff) <<  0)
                       | ((Next() & 0xff) <<  8)
                       | ((Next() & 0xff) << 16)
                       | ((Next() & 0xff) << 24));
@@ -433,7 +433,7 @@ namespace Akka.Util
         public long GetLong(ByteOrder byteOrder = ByteOrder.BigEndian)
         {
             return byteOrder == ByteOrder.BigEndian
-                ? (short) (((long) (Next() & 0xff) << 56)
+                ? (((long) (Next() & 0xff) << 56)
                                 | ((Next() & 0xff) << 48)
                                 | ((Next() & 0xff) << 40)
                                 | ((Next() & 0xff) << 32)
@@ -441,7 +441,7 @@ namespace Akka.Util
                                 | ((Next() & 0xff) << 16)
                                 | ((Next() & 0xff) <<  8)
                                 | ((Next() & 0xff) <<  0))
-                : (short) (((long) (Next() & 0xff) <<  0)
+                : (((long) (Next() & 0xff) <<  0)
                                 | ((Next() & 0xff) <<  8)
                                 | ((Next() & 0xff) << 16)
                                 | ((Next() & 0xff) << 24)
