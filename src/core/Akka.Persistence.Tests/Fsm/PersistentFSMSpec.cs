@@ -1,4 +1,11 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="PersistentFSMSpec.cs" company="Akka.NET Project">
+//     Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+//     Copyright (C) 2013-2015 Akka.NET project <https://github.com/akkadotnet/akka.net>
+// </copyright>
+//-----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Akka.Actor;
@@ -72,7 +79,7 @@ namespace Akka.Persistence.Tests.Fsm
 
             ExpectMsg<FSMBase.Transition<UserState>>();
 
-            Within(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1.9), () =>
+            Within(TimeSpan.FromSeconds(0.9), TimeSpan.FromSeconds(1.9), () =>
             {
                 ExpectMsg<FSMBase.Transition<UserState>>();
                 return true;
@@ -259,7 +266,7 @@ namespace Akka.Persistence.Tests.Fsm
         {
             var dummyReportActorRef = CreateTestProbe().Ref;
 
-            var fsmRef = Sys.ActorOf(Props.Create<WebStoreCustomerFSM>(Name, dummyReportActorRef), Name);
+            var fsmRef = Sys.ActorOf(Props.Create(()=> new WebStoreCustomerFSM(Name, dummyReportActorRef)));
 
             Watch(fsmRef);
             fsmRef.Tell(new FSMBase.SubscribeTransitionCallBack(TestActor));
@@ -288,7 +295,8 @@ namespace Akka.Persistence.Tests.Fsm
             ExpectMsg<NonEmptyShoppingCart>();
             ExpectTerminated(fsmRef);
 
-            var persistentEventsStreamer = Sys.ActorOf(Props.Create<PersistentEventsStreamer>(Name, TestActor), Name);
+            var persistentEventsStreamer = Sys.ActorOf(Props.Create(()=> new PersistentEventsStreamer(Name, TestActor)));
+
 
             ExpectMsg<ItemAdded>();
             ExpectMsg<PersistentFSMBase<UserState, IShoppingCart, IDomainEvent>.StateChangeEvent>();
