@@ -233,6 +233,7 @@ namespace Akka.IO
                 }
                 catch (SocketException ex)
                 {
+                    _log.Debug("SocketException in Select Loop: {0}", ex);
                     if (ex.SocketErrorCode == SocketError.NotSocket)
                     {
                         // One of the sockets has been closed
