@@ -215,8 +215,8 @@ namespace Akka.IO
                 _writeable.Clear();
                 _errors.Clear();
 
-                _readable.AddRange(_read.Keys);
-                _writeable.AddRange(_write.Keys);
+                _readable.AddRange(_read.Keys.Select(x => x));
+                _writeable.AddRange(_write.Keys.Select(x => x));
                 _errors.AddRange(_readable.Union(_writeable));
 
                 try
