@@ -92,11 +92,10 @@ namespace Akka.IO
         {
             if (!_socket.Poll(0, SelectMode.SelectRead))
                 return 0;
-            var data = new byte[buffer.Remaining];
-            var length = _socket.Receive(data);
+            var length = _socket.Receive(buffer.Array());
             if (length == 0)
                 return -1;
-            buffer.Put(data, 0, length);
+            buffer.Position(length);
             return length;
         }
 
