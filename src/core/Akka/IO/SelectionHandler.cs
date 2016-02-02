@@ -192,6 +192,10 @@ namespace Akka.IO
             private readonly IDictionary<Socket, SocketChannel> _read = new Dictionary<Socket, SocketChannel>();
             private readonly IDictionary<Socket, SocketChannel> _write = new Dictionary<Socket, SocketChannel>();
 
+            private readonly List<Socket> _readable = new List<Socket>();
+            private readonly List<Socket> _writeable = new List<Socket>();
+            private readonly List<Socket> _errors = new List<Socket>();
+
             public ChannelRegistryImpl(ILoggingAdapter log)
             {
                 _log = log;
@@ -207,12 +211,18 @@ namespace Akka.IO
             {
                 if (_read.Count == 0 && _write.Count == 0) return;  // Stop select loop when no more interested sockets. It will be started again once a socket is registered
 
-                var readable = _read.Keys.ToList();
-                var writeable = _write.Keys.ToList();
+                _readable.Clear();
+                _writeable.Clear();
+                _errors.Clear();
+
+                _readable.AddRange(_read.Keys);
+                _writeable.AddRange(_write.Keys);
+                _errors.AddRange(_readable.Union(_writeable));
+
                 try
                 {
-                    Socket.Select(readable, writeable, null, 1);
-                    foreach (var socket in readable)
+                    Socket.Select(_readable, _writeable, _errors, 1);
+                    foreach (var socket in _readable.Union(_errors.Where(_read.ContainsKey)))
                     {
                         var channel = _read[socket];
                         if (channel.IsOpen())
@@ -221,7 +231,7 @@ namespace Akka.IO
                             channel.Connection.Tell(ChannelAcceptable.Instance);
                         _read.Remove(socket);
                     }
-                    foreach (var socket in writeable)
+                    foreach (var socket in _writeable.Union(_errors.Where(_write.ContainsKey)))
                     {
                         var channel = _write[socket];
                         if (channel.IsOpen())
@@ -237,8 +247,8 @@ namespace Akka.IO
                     if (ex.SocketErrorCode == SocketError.NotSocket)
                     {
                         // One of the sockets has been closed
-                        readable.Where(x => !x.Connected).ForEach(x =>_read.Remove(x));
-                        writeable.Where(x => !x.Connected).ForEach(x => _write.Remove(x));
+                        _readable.Where(x => !x.Connected).ForEach(x =>_read.Remove(x));
+                        _writeable.Where(x => !x.Connected).ForEach(x => _write.Remove(x));
                     }
                 }
                 Execute(Select);
