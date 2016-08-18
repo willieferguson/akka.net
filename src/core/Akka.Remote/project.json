@@ -20,9 +20,8 @@
 
   "dependencies": {
     "Akka": { "target": "project" },
-    "Helios": "2.1.2",
     "System.Collections.Immutable": "1.2.0",
-    "Google.ProtocolBuffers": "2.4.1.555"
+    "Google.ProtocolBuffers": "2.4.2.600-beta" 
   },
 
   "buildOptions": {
@@ -35,6 +34,29 @@
     "net45": {
       "frameworkAssemblies": {
         "System.Net": "4.0.0"
+      },
+      "dependencies": {
+        "Helios": "2.1.2"
+      }
+    },
+    "netstandard1.6": {
+      "buildOptions": {
+        "define": [ "CORECLR" ]
+      },
+      "dependencies": {
+        "System.Console": "4.0.0",
+        "System.Collections.Concurrent": "4.0.12",
+        "System.Diagnostics.TraceSource": "4.0.0",
+        "System.Net.NameResolution": "4.0.0",
+        "System.Net.Sockets": "4.1.0",
+        "System.Reflection": "4.1.0",
+        "System.Reflection.Emit": "4.0.1",
+        "System.Runtime.InteropServices": "4.1.0",
+        "System.Threading.Thread": "4.0.0",
+        "System.Threading.ThreadPool": "4.0.10",
+        "System.Threading.Tasks": "4.0.11",
+
+        "System.Reflection.TypeExtensions": "4.1.0"
       }
     }
   }

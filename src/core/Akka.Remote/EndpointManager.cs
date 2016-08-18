@@ -17,6 +17,7 @@ using Akka.Dispatch;
 using Akka.Event;
 using Akka.Remote.Transport;
 using Akka.Util.Internal;
+using System.Reflection;
 
 namespace Akka.Remote
 {

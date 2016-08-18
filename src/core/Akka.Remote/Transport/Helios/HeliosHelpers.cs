@@ -5,6 +5,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+#if !CORECLR
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -87,4 +88,4 @@ namespace Akka.Remote.Transport.Helios
         }
     }
 }
-
+#endif

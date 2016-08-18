@@ -5,6 +5,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+#if !CORECLR
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -215,3 +216,4 @@ namespace Akka.Remote.Transport.Helios
     }
 }
 
+#endif

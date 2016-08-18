@@ -5,6 +5,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+#if !CORECLR
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -505,4 +506,4 @@ namespace Akka.Remote.Transport.Helios
 #endregion
     }
 }
-
+#endif
