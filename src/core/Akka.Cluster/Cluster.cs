@@ -17,6 +17,7 @@ using Akka.Event;
 using Akka.Remote;
 using Akka.Util;
 using Akka.Util.Internal;
+using System.Reflection;
 
 namespace Akka.Cluster
 {

@@ -13,6 +13,7 @@ using Akka.Actor;
 using Akka.Dispatch;
 using Akka.Event;
 using Akka.Util.Internal;
+using System.Reflection;
 
 namespace Akka.Cluster
 {
