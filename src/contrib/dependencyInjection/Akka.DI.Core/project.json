@@ -1,0 +1,22 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Akka": { "target": "project" }
+  },
+
+  "frameworks": {
+    "net45": {
+      "buildOptions": {
+        "define": [ "SERIALIZATION", "CONFIGURATION", "UNSAFE_THREADING", "CLONEABLE" ]
+      },
+      "frameworkAssemblies": {
+      }
+    },
+    "netstandard1.6": {
+      "buildOptions": {
+        "define": [ "CORECLR" ]
+      }
+    }
+  }
+}

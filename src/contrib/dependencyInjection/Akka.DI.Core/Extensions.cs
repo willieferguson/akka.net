@@ -57,8 +57,10 @@ namespace Akka.DI.Core
         /// </summary>
         /// <param name="typeName">The string representation of the type to retrieve.</param>
         /// <returns>The <see cref="Type"/> with the given name.</returns>
+#if !CORECLR
         public static Type GetTypeValue(this string typeName)
         {
+
             var firstTry = Type.GetType(typeName);
             Func<Type> searchForType = () =>
                 AppDomain.CurrentDomain
@@ -68,5 +70,6 @@ namespace Akka.DI.Core
             
             return firstTry ?? searchForType();
         }
+#endif
     }
 }
