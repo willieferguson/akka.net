@@ -109,7 +109,7 @@ namespace Akka.Streams.Implementation.IO
                         var target = StageActorRef;
                         _bindingPromise.TrySetResult(new StreamTcp.ServerBinding(bound.LocalAddress, () =>
                         {
-                            target.Tell(Tcp.Unbind.Instance, StageActorRef);
+                            target.Tell(Tcp.Unbind.Instance, target);
                             return _unbindPromise.Task;
                         }));
                     })

@@ -56,6 +56,7 @@ namespace Akka.IO
         private bool _peerClosed;
         private bool _writingSuspended;
         private bool _readingSuspended;
+        private bool _isOutputShutdown;
         private IActorRef _interestedInResume;
         private CloseInformation _closedMessage;  // for ConnectionClosed message in postStop
 
@@ -411,18 +412,17 @@ namespace Akka.IO
                         if (!_pullMode)
                             info.Registration.EnableInterest(SocketAsyncOperation.Receive);
                     }
-                    if (read is MoreDataWaiting)
+                    else if (read is MoreDataWaiting)
                     {
                         if (!_pullMode)
                             Self.Tell(SelectionHandler.ChannelReadable.Instance);
                     }
-
-                    // TODO: Port. Socket does not seem to expose (isOutputShutdown). It is passed as 'how' argument to Socket.Shutdown, but not exposed. 
-                    // case EndOfStream if channel.socket.isOutputShutdown ⇒
-                    //    if (TraceLogging) log.debug("Read returned end-of-stream, our side already closed")
-                    //    doCloseConnection(info.handler, closeCommander, ConfirmedClosed)
-
-                    if (read is EndOfStream)
+                    else if(read is EndOfStream && _isOutputShutdown)
+                    {
+                        if (_tcp.Settings.TraceLogging) _log.Debug("Read returned end-of-stream, our side already closed");
+                        DoCloseConnection(info.Handler, closeCommander, IO.Tcp.ConfirmedClosed.Instance);
+                    }
+                    else if (read is EndOfStream)
                     {
                         if (_tcp.Settings.TraceLogging) _log.Debug("Read returned end-of-stream, our side not yet closed");
                         HandleClose(info, closeCommander, IO.Tcp.PeerClosed.Instance);
@@ -508,6 +508,7 @@ namespace Akka.IO
         {
             try
             {
+                _isOutputShutdown = true;
                 Channel.Socket.Shutdown(SocketShutdown.Send);
                 return true;
             }

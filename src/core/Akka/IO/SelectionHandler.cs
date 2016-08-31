@@ -264,7 +264,7 @@ namespace Akka.IO
                     case SocketAsyncOperation.Receive:
                         Execute(() =>
                         {
-                            _read.Add(channel.Socket, channel);
+                            _read[channel.Socket] = channel;
                             if (_read.Count == 1 && _write.Count == 0)  // Start the select loop on initial enable interest
                                 Select();                               // The select loop will stop itself if no more interested sockets
                         });
@@ -273,7 +273,7 @@ namespace Akka.IO
                     case SocketAsyncOperation.Send:
                         Execute(() =>
                         {
-                            _write.Add(channel.Socket, channel);        // Start the select loop on initial enable interest
+                            _write[channel.Socket] = channel;        // Start the select loop on initial enable interest
                             if (_read.Count == 0 && _write.Count == 1)  // The select loop will stop itself if no more interested sockets
                                 Select();
                         });
