@@ -183,10 +183,11 @@ namespace Akka.IO
 
         protected override void PostStop()
         {
-            if (_channel.IsOpen())
-            {
-                _channel.Close();
-            }
+            _channel.Close();
+            //if (_channel.IsOpen())
+            //{
+            //    _channel.Close();
+            //}
         }
     }
 }

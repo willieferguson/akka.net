@@ -31,12 +31,20 @@ namespace Akka.Remote.Tests
                 port = 0
                 hostname = localhost
             }
+            akka.remote.akka-io.tcp = {
+                port = 0
+                hostname = localhost
+            }
             akka.loglevel = DEBUG
             ")
         {
             _client = ActorSystem.Create("RemoteMetricsSpec-client", ConfigurationFactory.ParseString(@"
                 akka.actor.provider =  ""Akka.Remote.RemoteActorRefProvider, Akka.Remote""
                  akka.remote.helios.tcp = {
+                    port = 0
+                    hostname = localhost
+                }                
+                 akka.remote.akka-io.tcp = {
                     port = 0
                     hostname = localhost
                 }                

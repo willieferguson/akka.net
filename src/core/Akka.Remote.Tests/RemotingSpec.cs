@@ -60,10 +60,12 @@ namespace Akka.Remote.Tests
 
                 enabled-transports = [
                   ""akka.remote.test"",
-                  ""akka.remote.helios.tcp"",
-#""akka.remote.helios.udp""
+                  ""akka.remote.akka-io.tcp"",
+                  #""akka.remote.helios.tcp"",
+                  #""akka.remote.helios.udp""
                 ]
 
+                akka-io.tcp = ${common-helios-settings}
                 helios.tcp = ${common-helios-settings}
                 helios.udp = ${common-helios-settings}
 
@@ -105,10 +107,12 @@ namespace Akka.Remote.Tests
 
                 enabled-transports = [
                   ""akka.remote.test"",
-                  ""akka.remote.helios.tcp"",
-#""akka.remote.helios.udp""
+                  ""akka.remote.akka-io.tcp"",
+                 #""akka.remote.helios.tcp"",
+                 #""akka.remote.helios.udp""
                 ]
 
+                akka-io.tcp = ${common-helios-settings}
                 helios.tcp = ${common-helios-settings}
                 helios.udp = ${common-helios-settings}
 

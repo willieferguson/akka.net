@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Sockets;
 using Akka.Actor;
 using Akka.Configuration;
+using System;
 
 namespace Akka.IO
 {
@@ -43,7 +44,14 @@ namespace Akka.IO
                     catch (SocketException ex)
                     {
                         if (ex.SocketErrorCode != SocketError.HostNotFound) throw;
-                         answer = new Dns.Resolved(resolve.Name, Enumerable.Empty<IPAddress>(), Enumerable.Empty<IPAddress>());
+                        answer = new Dns.Resolved(resolve.Name, Enumerable.Empty<IPAddress>(), Enumerable.Empty<IPAddress>());
+                        _cache.Put(answer, _negativeTtl);
+                    }
+                    catch (AggregateException e) when (e.InnerExceptions.Any(x => x is SocketException))
+                    {
+                        var ex = e.InnerExceptions.OfType<SocketException>().First();
+                        if (ex.SocketErrorCode != SocketError.HostNotFound) throw;
+                        answer = new Dns.Resolved(resolve.Name, Enumerable.Empty<IPAddress>(), Enumerable.Empty<IPAddress>());
                         _cache.Put(answer, _negativeTtl);
                     }
                 }

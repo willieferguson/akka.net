@@ -34,6 +34,8 @@ namespace Akka.Remote.Tests
             akka.actor.provider = ""Akka.Remote.RemoteActorRefProvider, Akka.Remote""
                 akka.remote.helios.tcp.hostname = 127.0.0.1
                 akka.remote.helios.tcp.port = 0
+                akka.remote.akka-io.tcp.hostname = 127.0.0.1
+                akka.remote.akka-io.tcp.port = 0
             akka.remote.helios.tcp.applied-adapters = [trttl, gremlin]
         ");
 
@@ -50,8 +52,11 @@ namespace Akka.Remote.Tests
             var resolved = RARP.For(Sys).Provider.ResolveActorRefWithLocalAddress(nonLocalActorPath.ToSerializationFormat(), nonLocalAddress);
             Assert.IsType<RemoteActorRef>(resolved); // should be a remote actorref
         }
-
+#if CORECLR
+        [Fact(Skip = "Helios specific and Helios currently not available on .NET Core")]
+#else
         [Fact]
+#endif
         public void RemoteActorRefProvider_default_address_must_include_adapter_schemes()
         {
             var localAddress = RARP.For(Sys).Provider.DefaultAddress;

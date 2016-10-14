@@ -41,7 +41,8 @@ namespace Akka.Remote.Tests
         public RemoteDeathWatchSpec() : base(_config)
         {
             _other = ActorSystem.Create("other",
-                ConfigurationFactory.ParseString(@"akka.remote.helios.tcp.port=2666").WithFallback(_config));
+                ConfigurationFactory.ParseString(@"akka.remote.helios.tcp.port=2666
+                                                   akka.remote.akka-io.tcp.port=2666").WithFallback(_config));
         }
 
         protected override void BeforeTermination()

@@ -5,6 +5,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+#if !CORECLR
+
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -75,6 +77,7 @@ namespace Akka.Remote.Tests.Transport
                 .WithFallback("akka.remote.helios.tcp.hostname =\"" + hostname + "\"")
                 .WithFallback("akka.remote.helios.tcp.public-hostname =\"" + (publichostname ?? hostname) + "\"")
                 .WithFallback("akka.remote.helios.tcp.port = " + (port ?? 0))
+                .WithFallback("akka.remote.akka-io.tcp.port = " + (port ?? 0))
                 .WithFallback("akka.remote.helios.tcp.dns-use-ipv6 = " + useIpv6.ToString().ToLowerInvariant())
                 .WithFallback("akka.test.single-expect-default = 1s")
                 .WithFallback(Sys.Settings.Config);
@@ -246,3 +249,4 @@ namespace Akka.Remote.Tests.Transport
     }
 }
 
+#endif

@@ -27,6 +27,10 @@ namespace Akka.Remote.Tests
                 hostname = 127.0.0.1
                 port = 0
             }
+            akka.remote.akka-io.tcp {
+                hostname = 127.0.0.1
+                port = 0
+            }
         ");
 
         public RemotingTerminatorSpecs() : base(RemoteConfig) { }

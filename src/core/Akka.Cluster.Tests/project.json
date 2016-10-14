@@ -2,6 +2,10 @@
   "testRunner": "xunit",
 
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0",
+      "type": "platform"
+    },
     "Akka.Cluster": { "target": "project" },
     "Akka.TestKit.Xunit2": { "target": "project" },
     "Akka.Tests.Shared.Internals": { "target": "project" },
@@ -11,6 +15,11 @@
   },
 
   "frameworks": {
-    "net451": {}
+    "netcoreapp1.0": {
+      "imports": [
+        "portable-net45+win8"
+      ],
+      "buildOptions": {"define": ["CORECLR"]}
+    }
   }
 }

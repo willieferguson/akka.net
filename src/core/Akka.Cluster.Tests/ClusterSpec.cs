@@ -27,7 +27,8 @@ namespace Akka.Cluster.Tests
             }
             akka.actor.provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
             akka.remote.log-remote-lifecycle-events = off
-            akka.remote.helios.tcp.port = 0";
+            akka.remote.helios.tcp.port = 0
+            akka.remote.akka-io.tcp.port = 0";
 
         public IActorRef Self { get { return TestActor; } }
 
@@ -133,8 +134,10 @@ namespace Akka.Cluster.Tests
         [Fact]
         public void A_cluster_must_be_allowed_to_join_and_leave_with_local_address()
         {
-            var sys2 = ActorSystem.Create("ClusterSpec2", ConfigurationFactory.ParseString(@"akka.actor.provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
-        akka.remote.helios.tcp.port = 0"));
+            var sys2 = ActorSystem.Create("ClusterSpec2", ConfigurationFactory.ParseString(@"
+                akka.actor.provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
+                akka.remote.helios.tcp.port = 0
+                akka.remote.akka-io.tcp.port = 0"));
 
             try
             {

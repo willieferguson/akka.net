@@ -20,7 +20,6 @@
 
   "dependencies": {
     "Akka": { "target": "project" },
-    "Helios": "2.1.2",
     "System.Collections.Immutable": "1.2.0",
     "Google.ProtocolBuffers": "2.4.1.555"
   },
@@ -35,7 +34,26 @@
     "net45": {
       "frameworkAssemblies": {
         "System.Net": "4.0.0"
+      },
+      "dependencies": {
+        "Helios": "2.1.2"
+      },
+      "buildOptions": {
+        "define": [ "SERIALIZATION" ]
+      }
+    },
+    "netstandard1.6": {
+      "dependencies": {
+        "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+        "System.Reflection.TypeExtensions": "4.1.0"
+      },
+      "imports": [
+        "portable-net45+win8"
+      ],
+      "buildOptions": {
+        "define": ["CORECLR"]
       }
     }
   }
 }
+

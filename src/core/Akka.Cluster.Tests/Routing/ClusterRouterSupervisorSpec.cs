@@ -20,7 +20,8 @@ namespace Akka.Cluster.Tests.Routing
         public ClusterRouterSupervisorSpec()
             : base(@"
                     akka.actor.provider = ""Akka.Cluster.ClusterActorRefProvider, Akka.Cluster""
-                    akka.remote.helios.tcp.port = 0")
+                    akka.remote.helios.tcp.port = 0
+                    akka.remote.akka-io.tcp.port = 0")
         {
         }
 

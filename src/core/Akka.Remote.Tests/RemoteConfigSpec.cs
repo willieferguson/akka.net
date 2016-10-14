@@ -5,6 +5,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+#if !CORECLR
+
 using System;
 using Akka.Actor;
 using Akka.Actor.Internal;
@@ -22,6 +24,7 @@ namespace Akka.Remote.Tests
         public RemoteConfigSpec():base(@"
                 akka.actor.provider = ""Akka.Remote.RemoteActorRefProvider, Akka.Remote""
                 akka.remote.helios.tcp.port = 0
+                akka.remote.akka-io.tcp.port = 0
             ") {}
         
 
@@ -135,3 +138,4 @@ namespace Akka.Remote.Tests
    }
 }
 
+#endif

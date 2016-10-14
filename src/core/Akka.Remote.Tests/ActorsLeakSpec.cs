@@ -94,7 +94,8 @@ namespace Akka.Remote.Tests
             for (var i = 1; i <= 3; i++)
             {
                 var remoteSystem = ActorSystem.Create("remote",
-                    ConfigurationFactory.ParseString("akka.remote.helios.tcp.port = 0")
+                    ConfigurationFactory.ParseString(@"akka.remote.helios.tcp.port = 0
+                                                       akka.remote.akka-io.tcp.port = 0")
                         .WithFallback(Sys.Settings.Config));
 
                 try
@@ -116,7 +117,8 @@ namespace Akka.Remote.Tests
             {
                 // always use the same address
                 var remoteSystem = ActorSystem.Create("remote",
-                    ConfigurationFactory.ParseString("akka.remote.helios.tcp.port = 2553")
+                    ConfigurationFactory.ParseString(@"akka.remote.helios.tcp.port = 2553
+                                                       akka.remote.akka-io.tcp.port = 2553")
                         .WithFallback(Sys.Settings.Config));
 
                 try
@@ -154,7 +156,8 @@ namespace Akka.Remote.Tests
             for (var i = 1; i <= 3; i++)
             {
                 var remoteSystem = ActorSystem.Create("remote",
-                    ConfigurationFactory.ParseString("akka.remote.helios.tcp.port = 0")
+                    ConfigurationFactory.ParseString(@"akka.remote.helios.tcp.port = 0
+                                                       akka.remote.akka-io.tcp.port = 0")
                         .WithFallback(Sys.Settings.Config));
                 var remoteAddress = RARP.For(remoteSystem).Provider.DefaultAddress;
 
@@ -181,7 +184,8 @@ namespace Akka.Remote.Tests
 
             // Remote idle for too long case
             var idleRemoteSystem = ActorSystem.Create("remote",
-                    ConfigurationFactory.ParseString("akka.remote.helios.tcp.port = 0")
+                    ConfigurationFactory.ParseString(@"akka.remote.helios.tcp.port = 0
+                                                       akka.remote.akka-io.tcp.port = 0")
                         .WithFallback(Sys.Settings.Config));
             var idleRemoteAddress = RARP.For(idleRemoteSystem).Provider.DefaultAddress;
 

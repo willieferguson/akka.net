@@ -37,6 +37,10 @@ namespace Akka.Remote.Tests.Serialization
                 hostname = 127.0.0.1
                 port = 0
             }        
+            akka.remote.akka-io.tcp {
+                hostname = 127.0.0.1
+                port = 0
+            }        
         ")
         {
             _ser = Sys.Serialization;

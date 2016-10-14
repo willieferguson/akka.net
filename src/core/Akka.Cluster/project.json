@@ -31,6 +31,20 @@
   },
 
   "frameworks": {
-    "net45": {}
+    "net45": {},
+    "netstandard1.6": {
+      "dependencies": {
+        "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+        "System.IO.Compression": "4.1.0",
+        "System.Reflection.TypeExtensions": "4.1.0",
+        "System.Security.Cryptography.Algorithms": "4.2.0"
+      },
+      "imports": [
+        "portable-net45+win8"
+      ],
+      "buildOptions": {
+        "define": [ "CORECLR" ]
+      }
+    }
   }
 }

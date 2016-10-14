@@ -168,6 +168,10 @@ namespace Akka.Remote.Tests
                     hostname = localhost
                     port = 0
                 }
+                remote.akka-io.tcp = {
+                    hostname = localhost
+                    port = 0
+                }
             }")
         {
             _remoteSystem = ActorSystem.Create("RemoteSystem", Sys.Settings.Config);

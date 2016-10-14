@@ -35,12 +35,14 @@ namespace Akka.Remote.Tests.Transport
                   test.single-expect-default = 6s #to help overcome issues with gated connections
                   actor.provider = ""Akka.Remote.RemoteActorRefProvider, Akka.Remote""
                   remote.helios.tcp.hostname = ""localhost""
+                  remote.akka-io.tcp.hostname = ""localhost""
                   remote.log-remote-lifecycle-events = off
                   remote.retry-gate-closed-for = 1 s
                   remote.transport-failure-detector.heartbeat-interval = 1 s
                   remote.transport-failure-detector.acceptable-heartbeat-pause = 3 s
                   remote.helios.tcp.applied-adapters = [""trttl""]
                   remote.helios.tcp.port = 0
+                  remote.akka-io.tcp.port = 0
                 }");
             }
         }
