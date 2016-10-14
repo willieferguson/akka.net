@@ -8,6 +8,7 @@
 using System;
 using System.Linq;
 using Akka.Actor;
+using System.Reflection;
 
 namespace Akka.DI.Core
 {
@@ -71,5 +72,17 @@ namespace Akka.DI.Core
             return firstTry ?? searchForType();
         }
 #endif
+        public static Type GetTypeValue(this string typeName, params Assembly[] assemblies)
+        {
+
+            var firstTry = Type.GetType(typeName);
+            Func<Type> searchForType = () =>
+                assemblies.SelectMany(x => x.GetTypes())
+                    .FirstOrDefault(t => t.Name.Equals(typeName));
+
+            return firstTry ?? searchForType();
+        }
+
+
     }
 }
